@@ -9,10 +9,11 @@
   </style>
 </head>
 <body>
+<div id="main-container" style="max-width: 700px; margin: 0 auto;">
   <h1>VRBB L8 Maximizer</h1>
 
   <button id="vrbb-toggle-help" style="margin-bottom: 10px;">Show Explanation</button>
-  <div id="vrbb-help-section" style="display: none; margin-bottom: 20px; max-width: 700px; line-height: 1.5;">
+  <div id="vrbb-help-section" style="display: none;">
     <p>
       Based on reverse-engineering and community experiments, it's understood that VRBB tracking involves two concepts for each resonator on the portal: the <b>visible holder</b> (the name shown on the portal) and an internal <b>faction-specific owner</b>, a concept invented by the community to explain VRBB behavior.
     </p>
@@ -60,18 +61,19 @@
 
   <div id="main"></div>
   <div id="vrbb-strategy-panel"></div>
+</div>
 
-  <script src="vrbb.js"></script>
+<script src="vrbb.js"></script>
 
-  <script>
-    $(document).ready(() => {
-      $('#vrbb-toggle-help').on('click', function () {
-        const section = $('#vrbb-help-section');
-        const isVisible = section.is(':visible');
-        section.slideToggle(200);
-        $(this).text(isVisible ? 'Show Explanation' : 'Hide Explanation');
-      });
+<script>
+  $(document).ready(() => {
+    $('#vrbb-toggle-help').on('click', function () {
+      const section = $('#vrbb-help-section');
+      const isVisible = section.is(':visible');
+      section.slideToggle(200);
+      $(this).text(isVisible ? 'Show Explanation' : 'Hide Explanation');
     });
-  </script>
+  });
+</script>
 </body>
 </html>
