@@ -444,6 +444,8 @@
         }
     ];
 
+    plugin.defaultFaction = Math.random() < 0.5 ? 'R' : 'E';
+
     plugin.initializeStrategyPointer = function(strategy) {
         return {
             strategyName: strategy.name,
@@ -1060,6 +1062,16 @@
               <div style="margin-top:10px;">
                 <label><input type="checkbox" id="vrbb-double-reso" /> Double Resonator Bonus Active</label>
               </div>
+
+              <div style="margin-top:10px;">
+                <label class="vrbb-text">
+                  Default Faction for new agents: 
+                  <select id="vrbb-default-faction">
+                    <option value="R" ${plugin.defaultFaction === 'R' ? 'selected' : ''}>RES</option>
+                    <option value="E" ${plugin.defaultFaction === 'E' ? 'selected' : ''}>ENL</option>
+                  </select>
+                </label>
+              </div>
         
               <div id="vrbb-agent-list" style="margin-top:10px;">
                 <b>Agent List</b>
@@ -1074,8 +1086,17 @@
           </div>
         `);
 
+        $('#vrbb-default-faction').on('change', function() {
+            plugin.defaultFaction = $(this).val();
+        });
+
         $('#vrbb-add-agent').off('click').on('click', () => {
-            plugin.draftAgentList.push({ name: '', team: 'R', active: true, useVrbb: false });
+            plugin.draftAgentList.push({ 
+                name: '', 
+                team: plugin.defaultFaction,  // 使用默认阵营
+                active: true, 
+                useVrbb: false 
+            });
             plugin.renderAgentListEditor(plugin.draftAgentList);
             plugin.renderResonatorDropdowns(plugin.draftAgentList);
         });
@@ -1147,6 +1168,8 @@
         // initial render
         plugin.renderAgentListEditor(plugin.draftAgentList);
         plugin.renderResonatorDropdowns(plugin.draftAgentList);
+
+        $('#vrbb-default-faction').val(plugin.defaultFaction);
     };
 
     plugin.renderStrategyPanel = function(filtered, agentList) {
