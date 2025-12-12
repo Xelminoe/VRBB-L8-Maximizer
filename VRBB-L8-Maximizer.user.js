@@ -3,7 +3,7 @@
 // @name           VRBB L8 Maximizer
 // @author         Xelminoe
 // @category       Info
-// @version        1.0
+// @version        1.0.1
 // @description    Assist planning L8 resonator max-out using VRBB — e.g. 3 agents from the same side build an L8 portal in 15 minutes.
 // @match          https://intel.ingress.com/*
 // @downloadURL    https://raw.github.com/Xelminoe/VRBB-L8-Maximizer/main/VRBB-L8-Maximizer.user.js
@@ -461,6 +461,8 @@ function wrapper(plugin_info) {
         }
     ];
 
+    plugin.defaultFaction = Math.random() < 0.5 ? 'R' : 'E';
+
     plugin.initializeStrategyPointer = function(strategy) {
         return {
             strategyName: strategy.name,
@@ -506,7 +508,7 @@ function wrapper(plugin_info) {
 
     plugin.isPortalTeamNullOrVRBBTeam = function (portalStatus0, agentList) {
         const team = portalStatus0?.team;
-        if (!team) return true; 
+        if (!team) return true;
 
         const vrbbAgent = agentList.find(a => a.useVrbb);
         if (!vrbbAgent || !vrbbAgent.team) return false;
@@ -1092,23 +1094,33 @@ function wrapper(plugin_info) {
                 <div class="vrbb-text">
                   <b>VRBB Resonator Planner</b>
                 </div>
-        
+
                 <div id="vrbb-resonator-panel" style="margin-top:10px;">
                   <div class="vrbb-text"><b>Resonator Ownership</b></div>
                   <div id="vrbb-reso-table"></div>
                 </div>
-        
+
                 <div style="margin-top:10px;">
                   <label class="vrbb-text"><input type="checkbox" id="vrbb-double-reso" />Double Resonator Bonus Active
                   </label>
                 </div>
-        
+
+                <div style="margin-top:10px;">
+                  <label class="vrbb-text">
+                    Default Faction for new agents:
+                    <select id="vrbb-default-faction">
+                      <option value="R" ${plugin.defaultFaction === 'R' ? 'selected' : ''}>RES</option>
+                      <option value="E" ${plugin.defaultFaction === 'E' ? 'selected' : ''}>ENL</option>
+                    </select>
+                  </label>
+                </div>
+
                 <div id="vrbb-agent-list" style="margin-top:10px;">
                   <div class="vrbb-text"><b>Agent List</b></div>
                   <div id="vrbb-agent-table"></div>
                   <button id="vrbb-add-agent" style="margin-top:5px;">Add Agent</button>
                 </div>
-        
+
                 <div style="margin-top:10px; text-align:right;">
                   <button id="vrbb-confirm-init">Confirm Initialization</button>
                 </div>
@@ -1124,12 +1136,21 @@ function wrapper(plugin_info) {
         });
 
         $('#vrbb-add-agent').off('click').on('click', () => {
-            plugin.draftAgentList.push({ name: '', team: 'R', active: true, useVrbb: false });
+            plugin.draftAgentList.push({
+                name: '',
+                team: plugin.defaultFaction,  // 使用默认阵营
+                active: true,
+                useVrbb: false
+            });
             plugin.renderAgentListEditor(plugin.draftAgentList);
             plugin.renderResonatorDropdowns(plugin.draftAgentList);
         });
 
         $('#vrbb-double-reso').prop('checked', plugin.doubleResoEvent);
+
+        $('#vrbb-default-faction').on('change', function() {
+            plugin.defaultFaction = $(this).val();
+        });
 
         $('#vrbb-confirm-init').off('click').on('click', () => {
             const agentList = plugin.draftAgentList;
@@ -1198,6 +1219,9 @@ function wrapper(plugin_info) {
         // initial render
         plugin.renderAgentListEditor(plugin.draftAgentList);
         plugin.renderResonatorDropdowns(plugin.draftAgentList);
+
+        // 设置默认阵营选择器的初始值
+        $('#vrbb-default-faction').val(plugin.defaultFaction);
     };
 
     plugin.renderStrategyPanel = function(filtered, agentList) {
@@ -1399,13 +1423,13 @@ function wrapper(plugin_info) {
     // ========== Button Injection ==========
     plugin.injectButton = function () {
         if ($('#vrbb-helper-btn').length > 0) return;
-    
+
         const button = $('<a>')
-            .attr('id', 'vrbb-helper-btn')
-            .attr('title', 'VRBB L8 Planner')
-            .text('VRBB-Plan')
-            .on('click', () => plugin.onButtonClick());
-    
+        .attr('id', 'vrbb-helper-btn')
+        .attr('title', 'VRBB L8 Planner')
+        .text('VRBB-Plan')
+        .on('click', () => plugin.onButtonClick());
+
         $('#toolbox').append(button);
     };
 
