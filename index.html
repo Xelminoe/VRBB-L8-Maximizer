@@ -14,6 +14,7 @@
 
   <button id="vrbb-toggle-help" style="margin-bottom: 10px;">Show Explanation</button>
   <div id="vrbb-help-section" style="display: none;">
+    <h3>Basic Concepts</h3>
     <p>
       Based on reverse-engineering and community experiments, it's understood that VRBB tracking involves two concepts for each resonator on the portal: the <b>visible holder</b> (the name shown on the portal) and an internal <b>faction-specific owner</b>, a concept invented by the community to explain VRBB behavior.
     </p>
@@ -45,6 +46,22 @@
       On the other hand, if <b>Ace</b> first deploys a VRBB on a neutral portal, and then both Ace and Alice deploy resonators, the resonator holders will remain individually assigned in later phases.
     </p>
     <hr style="margin: 16px 0;"/>
+    <h3>Why can a player place multiple L8 resonators under VRBB?</h3>
+    <p>This relies on the interaction of two mechanics:</p>
+    <ol>
+      <li>
+        When multiple agents from the same faction are present, placing resonators <b>before</b> placing a VRBB will convert the internal A-side owner to the VRBB placer (e.g. Ace).  
+        Then, after the portal flips to B (CP2), holders are B-system.  
+        When the portal flips back to A (CP3), all resonators owned by Ace are visible as Ace's, allowing other A agents to continue placing.
+      </li>
+      <li>
+        After placing a VRBB, but <b>before</b> the final flip (CP4→CP5), if the portal is currently owned by your faction, using a flip card will convert both holder and owner to the system agent.  
+        When the portal flips back to your faction in CP5, the portal is “clean” with only system-held resonators, and your faction can place again.
+      </li>
+    </ol>
+  
+    <hr style="margin: 20px 0;"/>
+    <h3>Strategy Differences for 3, 4, or 5–7 Agents: try starting from a <b>neutral portal</b>?</h3>
     <p>
       When there is no double deploy bonus, starting from a neutral or enemy portal, 3 agents from the same faction can only build an <b>opposing-faction L8 portal</b>.
     </p>
