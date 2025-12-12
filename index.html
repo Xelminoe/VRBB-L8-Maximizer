@@ -10,58 +10,68 @@
 </head>
 <body>
   <h1>VRBB L8 Maximizer</h1>
-  
-<div style="margin-bottom: 20px; max-width: 700px; line-height: 1.5;">
-  <p>
-    Based on reverse-engineering and community experiments, it's understood that VRBB tracking involves two concepts for each resonator on the portal: the <b>visible holder</b> (the name shown on the portal) and an internal <b>faction-specific owner</b>, a concept invented by the community to explain VRBB behavior.
-  </p>
-  <p>
-    When a VRBB flips from faction A to faction B between phases, the system attempts to transfer the B-side <b>owner</b> of each resonator to match its B-side <b>holder</b>.
-  </p>
-  <p>
-    There are three actions that affect resonator holder/owner assignments:
-  </p>
-  <ol>
-    <li>
-      When agent <b>Ace</b> from faction A deploys or upgrades a resonator, or uses an A-side flip card:  
-      the resonator becomes <b>holder = A-owner = Ace</b>, and <b>B-owner = B_system</b> (ADA or Jarvis).
-    </li>
-    <li>
-      When agent <b>Ace</b> from faction A places a VRBB:  
-      the A-owner of <i>all resonators</i> is overwritten to <b>Ace</b>.
-    </li>
-    <li>
-      When agent <b>Ace</b> uses a flip card of the opposite faction B:  
-      the affected resonator becomes <b>holder = B-owner = B_system</b>, and <b>A-owner = A_system</b>.
-    </li>
-  </ol>
-  <p>
-    This explains a commonly observed situation:  
-    if agents <b>Ace</b> and <b>Alice</b> (faction A) deploy resonators first, and then <b>Ace</b> places a VRBB (without further actions), by Phase 3 you'll see all resonators appear to belong to <b>Ace</b> — even those deployed by Alice — because the A-owner of those resonators was overwritten during VRBB deployment.
-  </p>
-  <p>
-    On the other hand, if <b>Ace</b> first deploys a VRBB on a neutral portal, and then both Ace and Alice deploy resonators, the resonator holders will remain individually assigned in later phases.
-  </p>
-</div>
 
-<div style="margin-bottom: 20px; max-width: 700px; line-height: 1.5;">
-  <p>
-    When there is no double deploy bonus, starting from a neutral or enemy portal, 3 agents from the same faction can only build an <b>opposing-faction L8 portal</b>.
-  </p>
-  <p>
-    With 4 same-faction agents (or 2 during a double deploy event), starting from a neutral or enemy portal, the <b>only</b> way to achieve a same-faction L8 portal after one VRBB phase is to <b>deploy the VRBB on a neutral or enemy portal</b> and consume <b>one flip card</b> in the process.
-  </p>
-  <p>
-    With 5–7 same-faction agents (or 3 during a double deploy event), starting from a neutral or enemy portal, it is possible to achieve an L8 portal <b>without using a flip card</b>.
-  </p>
-  <p>
-    In general, when there are 3–7 same-faction agents, starting from a <b>neutral portal</b> always gives you valid options. You only need to set the portal's team manually during initialization if you're trying to preserve L8 deployments from non-present agents.
-  </p>
-</div>
+  <button id="vrbb-toggle-help" style="margin-bottom: 10px;">Show Explanation</button>
+  <div id="vrbb-help-section" style="display: none; margin-bottom: 20px; max-width: 700px; line-height: 1.5;">
+    <p>
+      Based on reverse-engineering and community experiments, it's understood that VRBB tracking involves two concepts for each resonator on the portal: the <b>visible holder</b> (the name shown on the portal) and an internal <b>faction-specific owner</b>, a concept invented by the community to explain VRBB behavior.
+    </p>
+    <p>
+      When a VRBB flips from faction A to faction B between phases, the system attempts to transfer the B-side <b>owner</b> of each resonator to match its B-side <b>holder</b>.
+    </p>
+    <p>
+      There are three actions that affect resonator holder/owner assignments:
+    </p>
+    <ol>
+      <li>
+        When agent <b>Ace</b> from faction A deploys or upgrades a resonator, or uses an A-side flip card:  
+        the resonator becomes <b>holder = A-owner = Ace</b>, and <b>B-owner = B_system</b> (ADA or Jarvis).
+      </li>
+      <li>
+        When agent <b>Ace</b> from faction A places a VRBB:  
+        the A-owner of <i>all resonators</i> is overwritten to <b>Ace</b>.
+      </li>
+      <li>
+        When agent <b>Ace</b> uses a flip card of the opposite faction B:  
+        the affected resonator becomes <b>holder = B-owner = B_system</b>, and <b>A-owner = A_system</b>.
+      </li>
+    </ol>
+    <p>
+      This explains a commonly observed situation:  
+      if agents <b>Ace</b> and <b>Alice</b> (faction A) deploy resonators first, and then <b>Ace</b> places a VRBB (without further actions), by Phase 3 you'll see all resonators appear to belong to <b>Ace</b> — even those deployed by Alice — because the A-owner of those resonators was overwritten during VRBB deployment.
+    </p>
+    <p>
+      On the other hand, if <b>Ace</b> first deploys a VRBB on a neutral portal, and then both Ace and Alice deploy resonators, the resonator holders will remain individually assigned in later phases.
+    </p>
+    <hr style="margin: 16px 0;"/>
+    <p>
+      When there is no double deploy bonus, starting from a neutral or enemy portal, 3 agents from the same faction can only build an <b>opposing-faction L8 portal</b>.
+    </p>
+    <p>
+      With 4 same-faction agents (or 2 during a double deploy event), starting from a neutral or enemy portal, the <b>only</b> way to achieve a same-faction L8 portal after one VRBB phase is to <b>deploy the VRBB on a neutral or enemy portal</b> and consume <b>one flip card</b> in the process.
+    </p>
+    <p>
+      With 5–7 same-faction agents (or 3 during a double deploy event), starting from a neutral or enemy portal, it is possible to achieve an L8 portal <b>without using a flip card</b>.
+    </p>
+    <p>
+      In general, when there are 3–7 same-faction agents, starting from a <b>neutral portal</b> always gives you valid options. You only need to set the portal's team manually during initialization if you're trying to preserve L8 deployments from non-present agents.
+    </p>
+  </div>
 
   <div id="main"></div>
   <div id="vrbb-strategy-panel"></div>
 
   <script src="vrbb.js"></script>
+
+  <script>
+    $(document).ready(() => {
+      $('#vrbb-toggle-help').on('click', function () {
+        const section = $('#vrbb-help-section');
+        const isVisible = section.is(':visible');
+        section.slideToggle(200);
+        $(this).text(isVisible ? 'Show Explanation' : 'Hide Explanation');
+      });
+    });
+  </script>
 </body>
 </html>
